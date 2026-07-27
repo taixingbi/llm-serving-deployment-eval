@@ -41,24 +41,23 @@ This is a **capacity-fair** comparison (one replica / one GPU-class unit each at
 - Resources (A/B): GPU util/memory/(power), CPU, RAM
 - Bedrock ops metrics (recommended): CloudWatch `ModelCopy`, InvocationLatency, InvocationThrottles, token counts via `scripts/fetch_bedrock_metrics.py`
 
-### Cost (dual reporting)
+### Cost (triple reporting)
 
 Do **not** treat each short LLMPerf cell as an independent 5-minute Bedrock invoice. Report:
 
 | Field | Meaning |
 | --- | --- |
-| `cost_per_hour_usd` | Busy capacity $/hour (Self-host amortized TCO or electricity; ECS compute-only; Bedrock = copies × CMU × rate × 60) |
-| `normalized_compute_cost_usd` | `cost_per_hour × duration/3600` — serving efficiency without billing-window floors |
-| `billed_session_cost_usd` | For Bedrock CMU: one bill over the wall-clock session spanning an experiment matrix (`ceil(minutes/5)×5×copies×CMU×rate`) |
-| `allocated_session_cost_usd` | Session bill allocated to the cell (by duration or requests) |
-| `cost_per_request_normalized_usd` / `cost_per_request_billed_usd` | Per-request views of the two concepts |
-| `cell_floor_billed_cost_usd` | Hypothetical bill if that cell ran alone (still ≥ one 5-min window) |
+| `normalized_compute_cost_usd` | `cost_per_hour × duration/3600` — **primary** efficiency metric |
+| `standalone_billed_cost_usd` | Cell alone (Bedrock ≥1×5-min window) — cold/bursty analysis |
+| `session_allocated_cost_usd` | Share of matrix session CMU bill (by requests; see `session_costs.csv`) |
+| `cost_per_request_normalized_usd` / `cost_per_request_billed_usd` | Per-request views |
+| `model_copies_observed` / `model_copy_source` | `cloudwatch` or `configured_assumption` |
 
-**Self-host:** report electricity-only (`$0.0525/hr` at 350 W × $0.15/kWh) **and** amortized system TCO proxy (`system_purchase_usd / lifetime_hours` + electricity). Primary normalized cost uses amortized when configured.
+**Self-host:** electricity-only (`$0.0525/hr`) **and** amortized TCO (`system_purchase_usd / lifetime_hours` + electricity ≈ `$0.1476/hr`). Primary uses amortized when `primary_hourly: amortized`.
 
-**ECS:** `cost_per_hour` is **GPU instance compute only** (e.g. g5.xlarge). Phase 1 excludes EBS, ALB, NAT, CloudWatch, and data transfer — state this limitation explicitly.
+**ECS:** GPU instance compute only (g5.xlarge). Phase 1 excludes EBS/ALB/NAT/transfer.
 
-**Bedrock Custom Model Import:** billed by active model-copy CMU time in 5-minute windows, **not** per token. Prefer measured `ModelCopy` over hard-coded `model_copies: 1` under high concurrency.
+**Bedrock Custom Model Import:** CMU active-copy time in 5-minute windows, **not** per token. Prefer measured `ModelCopy` over `configured_assumption`.
 
 ## Figures
 

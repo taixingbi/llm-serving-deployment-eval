@@ -167,14 +167,20 @@ def flatten_run(run_dir: Path) -> dict[str, Any] | None:
 
     # Optional CloudWatch / sidecar metrics (see fetch_bedrock_metrics.py)
     model_copies = run.get("model_copies")
+    model_copy_source = run.get("model_copy_source")
     metrics_path = run_dir / "bedrock_metrics.json"
     if metrics_path.exists():
         try:
             bm = json.loads(metrics_path.read_text())
-            if model_copies is None and bm.get("model_copies") is not None:
+            if bm.get("model_copies") is not None:
                 model_copies = bm["model_copies"]
+                model_copy_source = "cloudwatch"
         except (json.JSONDecodeError, OSError):
             pass
+    if model_copies is not None and not model_copy_source:
+        model_copy_source = "run.json"
+    if model_copies is None:
+        model_copy_source = None  # filled later by estimate_cost as configured_assumption
 
     return {
         "backend": run.get("backend"),
@@ -186,6 +192,7 @@ def flatten_run(run_dir: Path) -> dict[str, Any] | None:
         "model": run.get("model") or summary_doc.get("model"),
         "finished_at": run.get("finished_at"),
         "model_copies": model_copies,
+        "model_copy_source": model_copy_source,
         "ttft_p50_s": m["ttft"]["p50"],
         "ttft_p95_s": m["ttft"]["p95"],
         "ttft_p99_s": m["ttft"]["p99"],

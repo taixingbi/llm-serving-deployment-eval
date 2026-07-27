@@ -102,18 +102,20 @@ python scripts/estimate_cost.py   # edit configs/cost.yaml first
 python scripts/plot_figures.py
 ```
 
-`estimate_cost.py` writes **dual** cost columns (do not use only the old per-cell 5-minute floor as the paper conclusion):
+`estimate_cost.py` writes **three** cost views (paper primary = normalized):
 
 | Column | Use |
 | --- | --- |
-| `normalized_compute_cost_usd` | Busy capacity cost for the cell (`$/hr × duration`) |
-| `billed_session_cost_usd` | Bedrock: one CMU bill for the whole experiment session |
-| `allocated_session_cost_usd` | Session bill allocated to this cell |
-| `cost_per_request_normalized_usd` | Efficiency / frontier plots (primary) |
-| `cost_per_request_billed_usd` | Closer to AWS invoice attribution |
-| `cell_floor_billed_cost_usd` | If the cell ran alone (still ≥1×5-min window) |
+| `normalized_compute_cost_usd` | Busy capacity (`$/hr × duration`) — **main efficiency table** |
+| `standalone_billed_cost_usd` | If the cell ran alone (Bedrock ≥1×5-min window) — cold/bursty |
+| `session_allocated_cost_usd` | Share of the matrix session CMU bill — invoice attribution |
+| `cost_per_request_normalized_usd` | Frontier / cost-vs-latency plots |
+| `cost_per_request_billed_usd` | Per-request session allocation |
+| `model_copies_observed` / `model_copy_source` | `cloudwatch` or `configured_assumption` |
 
-Self-host also prints electricity-only vs amortized TCO $/hour. ECS is labeled **compute-only** (g5.xlarge instance price; no ALB/EBS/NAT).
+Also writes `results/session_costs.csv` (one row per backend×experiment session).
+
+Self-host prints electricity-only vs amortized TCO $/hour. ECS is labeled **compute-only** (g5.xlarge instance price; no ALB/EBS/NAT).
 
 Outputs:
 

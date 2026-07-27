@@ -6,10 +6,10 @@
 
 currency: USD
 
-# How to allocate billed_session_cost across cells in a session:
+# How to allocate session CMU bill across cells:
+#   requests — proportional to num_completed_requests (paper default)
 #   duration — proportional to approx_duration_s
-#   requests — proportional to num_completed_requests
-session_allocation: duration
+session_allocation: requests
 
 selfhost:
   billing: electricity
