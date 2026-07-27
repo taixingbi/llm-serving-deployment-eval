@@ -1,25 +1,41 @@
-# Edit rates to match your account / region pricing. Units are USD.
+# Unified cost model for Self-host / ECS / Bedrock (USD).
+# estimate_cost.py dispatches on each backend's `billing` field.
 #
-# Self-host: optional electricity estimate (power_watts * $/kWh).
-# ECS: on-demand g5.xlarge roughly ~$1+/hr (verify current price).
-# Bedrock Custom Model Import: check current imported-model token rates.
+# Verify rates for your account/region before publishing paper numbers.
 
 currency: USD
 
 selfhost:
-  cost_per_hour: 0.0
-  # Optional: estimated wall power while serving
+  billing: electricity
+  # No cloud hourly charge; electricity is the variable OpEx proxy.
   power_watts: 350
   electricity_usd_per_kwh: 0.15
   use_electricity: true
+  # Optional GPU amortization (uncomment to include in $/hour):
+  # hardware:
+  #   gpu_purchase_usd: 1800
+  #   lifetime_hours: 26280   # e.g. 3 years × 24 × 365
 
 ecs:
-  # 1 x g5.xlarge (1 x A10G) on-demand placeholder
+  billing: hourly
+  # 1 × g5.xlarge (1 × A10G) on-demand — change if you swap instance type
   cost_per_hour: 1.006
 
 bedrock:
-  # Imported model token pricing placeholders (per 1M tokens)
-  input_usd_per_1m_tokens: 0.0
-  output_usd_per_1m_tokens: 0.0
-  # If Bedrock also bills provisioned/hosting, add hourly here
-  cost_per_hour: 0.0
+  # This harness uses Custom Model Import (On-Demand), which is NOT per-token.
+  # Billed by active model-copy time in Custom Model Units (CMU), 5-minute windows.
+  # Docs: https://docs.aws.amazon.com/bedrock/latest/userguide/import-model-calculate-cost.html
+  billing: cmu
+  model_copies: 1
+  # From Bedrock console model details or GetImportedModel.customModelUnitsPerModelCopy
+  custom_model_units_per_copy: 2
+  # Price per CMU per minute — US East (N. Virginia) v1.0 on Bedrock pricing page
+  usd_per_cmu_per_minute: 0.05718
+  billing_window_minutes: 5
+  cost_per_hour: 0.0   # no Provisioned Throughput
+  #
+  # If you instead compare against an on-demand foundation model (true token billing):
+  # billing: token
+  # input_usd_per_1m_tokens: 0.0
+  # output_usd_per_1m_tokens: 0.0
+  # cost_per_hour: 0.0

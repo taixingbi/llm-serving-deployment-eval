@@ -19,3 +19,5 @@ paper/figures/*.png
 
 # LLMPerf checkout (optional local clone)
 vendor/llmperf/
+
+tmp.md

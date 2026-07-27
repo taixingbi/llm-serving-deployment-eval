@@ -39,7 +39,13 @@ This is a **capacity-fair** comparison (one replica / one GPU-class unit each), 
 - Throughput: requests/s, output tokens/s
 - Reliability: error rate, timeouts
 - Resources (A/B): GPU util/memory/(power), CPU, RAM
-- Cost: $/request, $/1M output tokens, $/hour (from `configs/cost.yaml`)
+- Cost: $/request, $/1M output tokens, $/hour (from `configs/cost.yaml`), with billing model per backend:
+
+  | Backend | Billing model | Notes |
+  | --- | --- | --- |
+  | Self-host | Electricity | `power_watts × $/kWh` (optional GPU amortization) |
+  | ECS | Hourly | On-demand instance `$/hour × duration` |
+  | Bedrock (Custom Model Import) | CMU (active copy) | On-demand: CMUs × $/CMU/min × 5-min windows; idle → $0 |
 
 ## Figures
 
