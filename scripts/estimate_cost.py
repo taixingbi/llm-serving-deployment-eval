@@ -313,6 +313,13 @@ def enrich(
             session_cost, billed_minutes = (
                 bill_cmu_minutes(section, copies, span_s) if span_s > 0 else (0.0, 0.0)
             )
+        elif billing in ("hourly", "electricity"):
+            # Instance / host is held for the full wall span (includes gaps
+            # between cells: Ray startup, resolve, idle). Not sum of active only.
+            rates = hourly_rates(str(backend), section, copies)
+            hourly = float(rates["cost_per_hour_usd"])
+            session_cost = hourly * (span_s / 3600.0) if span_s > 0 else 0.0
+            billed_minutes = span_s / 60.0 if span_s else 0.0
         else:
             session_cost = float(group["normalized_compute_cost_usd"].sum())
             billed_minutes = span_s / 60.0 if span_s else 0.0
@@ -345,11 +352,10 @@ def enrich(
             weight_sum = float(len(group))
 
         for i in idx:
-            if billing == "cmu":
-                w = float(weights.loc[i]) if i in weights.index else 0.0
-                allocated = session_cost * (w / weight_sum) if weight_sum else 0.0
-            else:
-                allocated = float(result.at[i, "normalized_compute_cost_usd"] or 0.0)
+            # All billing modes: allocate the session bill (wall for hourly/
+            # electricity/cmu; token falls back to sum-normalized session).
+            w = float(weights.loc[i]) if i in weights.index else 0.0
+            allocated = session_cost * (w / weight_sum) if weight_sum else 0.0
             completed = float(result.at[i, "num_completed_requests"] or 0)
             result.at[i, "billed_session_cost_usd"] = session_cost
             result.at[i, "session_wall_s"] = span_s

@@ -106,9 +106,9 @@ python scripts/plot_figures.py
 
 | Column | Use |
 | --- | --- |
-| `normalized_compute_cost_usd` | Busy capacity (`$/hr × duration`) — **main efficiency table** |
+| `normalized_compute_cost_usd` | Busy capacity (`$/hr × active duration`) — **main efficiency table** |
 | `standalone_billed_cost_usd` | If the cell ran alone (Bedrock ≥1×5-min window) — cold/bursty |
-| `session_allocated_cost_usd` | Share of the matrix session CMU bill — invoice attribution |
+| `session_allocated_cost_usd` | Share of the matrix **wall-clock** session bill — invoice attribution |
 | `cost_per_request_normalized_usd` | Frontier / cost-vs-latency plots |
 | `cost_per_request_billed_usd` | Per-request session allocation |
 | `model_copies_observed` / `model_copy_source` | `cloudwatch` or `configured_assumption` |

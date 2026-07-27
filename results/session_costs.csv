@@ -2,9 +2,9 @@ backend,experiment,billing,session_duration_s,billed_minutes,model_copies,model_
 bedrock,concurrency,cmu,299.5181529521942,5.0,1.0,configured_assumption,350.0,7,0.5718,manifest
 bedrock,output_length,cmu,435.4238660335541,10.0,1.0,configured_assumption,120.0,4,1.1436,manifest
 bedrock,prompt_length,cmu,255.6967649459839,5.0,1.0,configured_assumption,120.0,4,0.5718,manifest
-ecs,concurrency,hourly,633.0896258354187,10.551493763923645,1.0,configured_assumption,350.0,7,0.1653716710422225,manifest
-ecs,output_length,hourly,1082.25306391716,18.037551065286,1.0,configured_assumption,120.0,4,0.2958117344205554,manifest
-ecs,prompt_length,hourly,585.6621148586273,9.761035247643788,1.0,configured_assumption,120.0,4,0.15698195994777414,manifest
-selfhost,concurrency,electricity,420.4770131111145,7.007950218518575,1.0,configured_assumption,350.0,7,0.015675803802038445,manifest
-selfhost,output_length,electricity,662.2086651325226,11.036811085542043,1.0,configured_assumption,120.0,4,0.02623576693997816,manifest
-selfhost,prompt_length,electricity,278.19570803642273,4.636595133940379,1.0,configured_assumption,90.0,3,0.01045852987967294,manifest
+ecs,concurrency,hourly,633.0896258354187,10.551493763923645,1.0,configured_assumption,350.0,7,0.17691337877511978,manifest
+ecs,output_length,hourly,1082.25306391716,18.037551065286,1.0,configured_assumption,120.0,4,0.3024296061946286,manifest
+ecs,prompt_length,hourly,585.6621148586273,9.761035247643788,1.0,configured_assumption,120.0,4,0.1636600243188275,manifest
+selfhost,concurrency,electricity,420.4770131111145,7.007950218518575,1.0,configured_assumption,350.0,7,0.01724298862429383,manifest
+selfhost,output_length,electricity,662.2086651325226,11.036811085542043,1.0,configured_assumption,120.0,4,0.027155958884181545,manifest
+selfhost,prompt_length,electricity,278.19570803642273,4.636595133940379,1.0,configured_assumption,90.0,3,0.011408294102707056,manifest

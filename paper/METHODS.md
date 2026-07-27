@@ -49,7 +49,7 @@ Do **not** treat each short LLMPerf cell as an independent 5-minute Bedrock invo
 | --- | --- |
 | `normalized_compute_cost_usd` | `cost_per_hour × duration/3600` — **primary** efficiency metric |
 | `standalone_billed_cost_usd` | Cell alone (Bedrock ≥1×5-min window) — cold/bursty analysis |
-| `session_allocated_cost_usd` | Share of matrix session CMU bill (by requests; see `session_costs.csv`) |
+| `session_allocated_cost_usd` | Share of matrix **wall-clock** session bill (by requests; see `session_costs.csv`) |
 | `cost_per_request_normalized_usd` / `cost_per_request_billed_usd` | Per-request views |
 | `model_copies_observed` / `model_copy_source` | `cloudwatch` or `configured_assumption` |
 
