@@ -1,0 +1,12 @@
+{
+  "backend": "bedrock",
+  "exp_id": "concurrency_c32_in550_out150",
+  "mean_input_tokens": 550,
+  "mean_output_tokens": 150,
+  "concurrency": 32,
+  "max_num_completed_requests": 50,
+  "timeout_s": 600,
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "openai_api_base": "https://axhufy3wj7nq3bojkqdtro6vqe0gdfpc.lambda-url.us-east-1.on.aws/v1",
+  "finished_at": 1785117418.168253
+}

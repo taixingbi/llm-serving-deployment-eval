@@ -1,0 +1,12 @@
+{
+  "backend": "ecs",
+  "exp_id": "concurrency_c32_in550_out150",
+  "mean_input_tokens": 550,
+  "mean_output_tokens": 150,
+  "concurrency": 32,
+  "max_num_completed_requests": 50,
+  "timeout_s": 600,
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "openai_api_base": "http://ecs-inference-mvp-alb-676187568.us-east-1.elb.amazonaws.com/v1",
+  "finished_at": 1785117115.2455978
+}

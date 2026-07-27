@@ -1,0 +1,13 @@
+name: concurrency
+description: Experiment 1 — concurrency sweep with fixed prompt/output sizes
+
+defaults:
+  mean_input_tokens: 550
+  mean_output_tokens: 150
+  stddev_input_tokens: 0
+  stddev_output_tokens: 0
+  max_num_completed_requests: 50
+  timeout_s: 600
+
+matrix:
+  concurrency: [1, 2, 4, 8, 16, 32, 64]

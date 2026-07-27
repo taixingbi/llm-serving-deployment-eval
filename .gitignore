@@ -1,0 +1,21 @@
+# Ignore local scratch; keep results/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/
+
+# Generated figures stay tracked under paper/figures when committed intentionally;
+# ignore local scratch copies
+paper/figures/*.png
+!paper/figures/.gitkeep
+
+# LLMPerf checkout (optional local clone)
+vendor/llmperf/

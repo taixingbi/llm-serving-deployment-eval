@@ -1,0 +1,12 @@
+{
+  "backend": "selfhost",
+  "exp_id": "output_length_c1_in512_out1024",
+  "mean_input_tokens": 512,
+  "mean_output_tokens": 1024,
+  "concurrency": 1,
+  "max_num_completed_requests": 30,
+  "timeout_s": 600,
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "openai_api_base": "http://192.168.86.176:30080/v1",
+  "finished_at": 1785119219.875808
+}

@@ -1,0 +1,25 @@
+# Edit rates to match your account / region pricing. Units are USD.
+#
+# Self-host: optional electricity estimate (power_watts * $/kWh).
+# ECS: on-demand g5.xlarge roughly ~$1+/hr (verify current price).
+# Bedrock Custom Model Import: check current imported-model token rates.
+
+currency: USD
+
+selfhost:
+  cost_per_hour: 0.0
+  # Optional: estimated wall power while serving
+  power_watts: 350
+  electricity_usd_per_kwh: 0.15
+  use_electricity: true
+
+ecs:
+  # 1 x g5.xlarge (1 x A10G) on-demand placeholder
+  cost_per_hour: 1.006
+
+bedrock:
+  # Imported model token pricing placeholders (per 1M tokens)
+  input_usd_per_1m_tokens: 0.0
+  output_usd_per_1m_tokens: 0.0
+  # If Bedrock also bills provisioned/hosting, add hourly here
+  cost_per_hour: 0.0

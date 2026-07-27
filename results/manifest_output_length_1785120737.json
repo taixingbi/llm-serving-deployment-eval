@@ -1,0 +1,264 @@
+{
+  "experiment": "output_length",
+  "backends": [
+    "selfhost",
+    "ecs",
+    "bedrock"
+  ],
+  "cells": [
+    {
+      "concurrency": 1,
+      "mean_input_tokens": 512,
+      "stddev_input_tokens": 0,
+      "stddev_output_tokens": 0,
+      "max_num_completed_requests": 30,
+      "timeout_s": 600,
+      "mean_output_tokens": 128
+    },
+    {
+      "concurrency": 1,
+      "mean_input_tokens": 512,
+      "stddev_input_tokens": 0,
+      "stddev_output_tokens": 0,
+      "max_num_completed_requests": 30,
+      "timeout_s": 600,
+      "mean_output_tokens": 256
+    },
+    {
+      "concurrency": 1,
+      "mean_input_tokens": 512,
+      "stddev_input_tokens": 0,
+      "stddev_output_tokens": 0,
+      "max_num_completed_requests": 30,
+      "timeout_s": 600,
+      "mean_output_tokens": 512
+    },
+    {
+      "concurrency": 1,
+      "mean_input_tokens": 512,
+      "stddev_input_tokens": 0,
+      "stddev_output_tokens": 0,
+      "max_num_completed_requests": 30,
+      "timeout_s": 600,
+      "mean_output_tokens": 1024
+    }
+  ],
+  "runs": [
+    {
+      "backend": "selfhost",
+      "experiment": "output_length",
+      "exp_id": "output_length_c1_in512_out128",
+      "cell": {
+        "concurrency": 1,
+        "mean_input_tokens": 512,
+        "stddev_input_tokens": 0,
+        "stddev_output_tokens": 0,
+        "max_num_completed_requests": 30,
+        "timeout_s": 600,
+        "mean_output_tokens": 128
+      },
+      "started_at": 1785118557.66933,
+      "finished_at": 1785118644.388484,
+      "returncode": 0,
+      "status": "ok"
+    },
+    {
+      "backend": "selfhost",
+      "experiment": "output_length",
+      "exp_id": "output_length_c1_in512_out256",
+      "cell": {
+        "concurrency": 1,
+        "mean_input_tokens": 512,
+        "stddev_input_tokens": 0,
+        "stddev_output_tokens": 0,
+        "max_num_completed_requests": 30,
+        "timeout_s": 600,
+        "mean_output_tokens": 256
+      },
+      "started_at": 1785118644.388601,
+      "finished_at": 1785118777.0794308,
+      "returncode": 0,
+      "status": "ok"
+    },
+    {
+      "backend": "selfhost",
+      "experiment": "output_length",
+      "exp_id": "output_length_c1_in512_out512",
+      "cell": {
+        "concurrency": 1,
+        "mean_input_tokens": 512,
+        "stddev_input_tokens": 0,
+        "stddev_output_tokens": 0,
+        "max_num_completed_requests": 30,
+        "timeout_s": 600,
+        "mean_output_tokens": 512
+      },
+      "started_at": 1785118777.0795038,
+      "finished_at": 1785119002.8421519,
+      "returncode": 0,
+      "status": "ok"
+    },
+    {
+      "backend": "selfhost",
+      "experiment": "output_length",
+      "exp_id": "output_length_c1_in512_out1024",
+      "cell": {
+        "concurrency": 1,
+        "mean_input_tokens": 512,
+        "stddev_input_tokens": 0,
+        "stddev_output_tokens": 0,
+        "max_num_completed_requests": 30,
+        "timeout_s": 600,
+        "mean_output_tokens": 1024
+      },
+      "started_at": 1785119002.842245,
+      "finished_at": 1785119219.877995,
+      "returncode": 0,
+      "status": "ok"
+    },
+    {
+      "backend": "ecs",
+      "experiment": "output_length",
+      "exp_id": "output_length_c1_in512_out128",
+      "cell": {
+        "concurrency": 1,
+        "mean_input_tokens": 512,
+        "stddev_input_tokens": 0,
+        "stddev_output_tokens": 0,
+        "max_num_completed_requests": 30,
+        "timeout_s": 600,
+        "mean_output_tokens": 128
+      },
+      "started_at": 1785119219.878092,
+      "finished_at": 1785119360.1650581,
+      "returncode": 0,
+      "status": "ok"
+    },
+    {
+      "backend": "ecs",
+      "experiment": "output_length",
+      "exp_id": "output_length_c1_in512_out256",
+      "cell": {
+        "concurrency": 1,
+        "mean_input_tokens": 512,
+        "stddev_input_tokens": 0,
+        "stddev_output_tokens": 0,
+        "max_num_completed_requests": 30,
+        "timeout_s": 600,
+        "mean_output_tokens": 256
+      },
+      "started_at": 1785119360.165144,
+      "finished_at": 1785119569.40114,
+      "returncode": 0,
+      "status": "ok"
+    },
+    {
+      "backend": "ecs",
+      "experiment": "output_length",
+      "exp_id": "output_length_c1_in512_out512",
+      "cell": {
+        "concurrency": 1,
+        "mean_input_tokens": 512,
+        "stddev_input_tokens": 0,
+        "stddev_output_tokens": 0,
+        "max_num_completed_requests": 30,
+        "timeout_s": 600,
+        "mean_output_tokens": 512
+      },
+      "started_at": 1785119569.401227,
+      "finished_at": 1785119941.3399382,
+      "returncode": 0,
+      "status": "ok"
+    },
+    {
+      "backend": "ecs",
+      "experiment": "output_length",
+      "exp_id": "output_length_c1_in512_out1024",
+      "cell": {
+        "concurrency": 1,
+        "mean_input_tokens": 512,
+        "stddev_input_tokens": 0,
+        "stddev_output_tokens": 0,
+        "max_num_completed_requests": 30,
+        "timeout_s": 600,
+        "mean_output_tokens": 1024
+      },
+      "started_at": 1785119941.34002,
+      "finished_at": 1785120302.131156,
+      "returncode": 0,
+      "status": "ok"
+    },
+    {
+      "backend": "bedrock",
+      "experiment": "output_length",
+      "exp_id": "output_length_c1_in512_out128",
+      "cell": {
+        "concurrency": 1,
+        "mean_input_tokens": 512,
+        "stddev_input_tokens": 0,
+        "stddev_output_tokens": 0,
+        "max_num_completed_requests": 30,
+        "timeout_s": 600,
+        "mean_output_tokens": 128
+      },
+      "started_at": 1785120302.131247,
+      "finished_at": 1785120366.957112,
+      "returncode": 0,
+      "status": "ok"
+    },
+    {
+      "backend": "bedrock",
+      "experiment": "output_length",
+      "exp_id": "output_length_c1_in512_out256",
+      "cell": {
+        "concurrency": 1,
+        "mean_input_tokens": 512,
+        "stddev_input_tokens": 0,
+        "stddev_output_tokens": 0,
+        "max_num_completed_requests": 30,
+        "timeout_s": 600,
+        "mean_output_tokens": 256
+      },
+      "started_at": 1785120366.957194,
+      "finished_at": 1785120455.2014458,
+      "returncode": 0,
+      "status": "ok"
+    },
+    {
+      "backend": "bedrock",
+      "experiment": "output_length",
+      "exp_id": "output_length_c1_in512_out512",
+      "cell": {
+        "concurrency": 1,
+        "mean_input_tokens": 512,
+        "stddev_input_tokens": 0,
+        "stddev_output_tokens": 0,
+        "max_num_completed_requests": 30,
+        "timeout_s": 600,
+        "mean_output_tokens": 512
+      },
+      "started_at": 1785120455.201528,
+      "finished_at": 1785120600.8274581,
+      "returncode": 0,
+      "status": "ok"
+    },
+    {
+      "backend": "bedrock",
+      "experiment": "output_length",
+      "exp_id": "output_length_c1_in512_out1024",
+      "cell": {
+        "concurrency": 1,
+        "mean_input_tokens": 512,
+        "stddev_input_tokens": 0,
+        "stddev_output_tokens": 0,
+        "max_num_completed_requests": 30,
+        "timeout_s": 600,
+        "mean_output_tokens": 1024
+      },
+      "started_at": 1785120600.827563,
+      "finished_at": 1785120737.555113,
+      "returncode": 0,
+      "status": "ok"
+    }
+  ]
+}

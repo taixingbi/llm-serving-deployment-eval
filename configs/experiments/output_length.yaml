@@ -1,0 +1,13 @@
+name: output_length
+description: Experiment 3 — output length sweep at fixed prompt size
+
+defaults:
+  concurrency: 1
+  mean_input_tokens: 512
+  stddev_input_tokens: 0
+  stddev_output_tokens: 0
+  max_num_completed_requests: 30
+  timeout_s: 600
+
+matrix:
+  mean_output_tokens: [128, 256, 512, 1024]

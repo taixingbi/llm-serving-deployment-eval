@@ -1,0 +1,264 @@
+{
+  "experiment": "prompt_length",
+  "backends": [
+    "selfhost",
+    "ecs",
+    "bedrock"
+  ],
+  "cells": [
+    {
+      "concurrency": 1,
+      "mean_output_tokens": 128,
+      "stddev_input_tokens": 0,
+      "stddev_output_tokens": 0,
+      "max_num_completed_requests": 30,
+      "timeout_s": 600,
+      "mean_input_tokens": 512
+    },
+    {
+      "concurrency": 1,
+      "mean_output_tokens": 128,
+      "stddev_input_tokens": 0,
+      "stddev_output_tokens": 0,
+      "max_num_completed_requests": 30,
+      "timeout_s": 600,
+      "mean_input_tokens": 1024
+    },
+    {
+      "concurrency": 1,
+      "mean_output_tokens": 128,
+      "stddev_input_tokens": 0,
+      "stddev_output_tokens": 0,
+      "max_num_completed_requests": 30,
+      "timeout_s": 600,
+      "mean_input_tokens": 2048
+    },
+    {
+      "concurrency": 1,
+      "mean_output_tokens": 128,
+      "stddev_input_tokens": 0,
+      "stddev_output_tokens": 0,
+      "max_num_completed_requests": 30,
+      "timeout_s": 600,
+      "mean_input_tokens": 4096
+    }
+  ],
+  "runs": [
+    {
+      "backend": "selfhost",
+      "experiment": "prompt_length",
+      "exp_id": "prompt_length_c1_in512_out128",
+      "cell": {
+        "concurrency": 1,
+        "mean_output_tokens": 128,
+        "stddev_input_tokens": 0,
+        "stddev_output_tokens": 0,
+        "max_num_completed_requests": 30,
+        "timeout_s": 600,
+        "mean_input_tokens": 512
+      },
+      "started_at": 1785117438.074899,
+      "finished_at": 1785117527.289995,
+      "returncode": 0,
+      "status": "ok"
+    },
+    {
+      "backend": "selfhost",
+      "experiment": "prompt_length",
+      "exp_id": "prompt_length_c1_in1024_out128",
+      "cell": {
+        "concurrency": 1,
+        "mean_output_tokens": 128,
+        "stddev_input_tokens": 0,
+        "stddev_output_tokens": 0,
+        "max_num_completed_requests": 30,
+        "timeout_s": 600,
+        "mean_input_tokens": 1024
+      },
+      "started_at": 1785117527.290085,
+      "finished_at": 1785117617.803495,
+      "returncode": 0,
+      "status": "ok"
+    },
+    {
+      "backend": "selfhost",
+      "experiment": "prompt_length",
+      "exp_id": "prompt_length_c1_in2048_out128",
+      "cell": {
+        "concurrency": 1,
+        "mean_output_tokens": 128,
+        "stddev_input_tokens": 0,
+        "stddev_output_tokens": 0,
+        "max_num_completed_requests": 30,
+        "timeout_s": 600,
+        "mean_input_tokens": 2048
+      },
+      "started_at": 1785117617.803585,
+      "finished_at": 1785117709.7808142,
+      "returncode": 0,
+      "status": "ok"
+    },
+    {
+      "backend": "selfhost",
+      "experiment": "prompt_length",
+      "exp_id": "prompt_length_c1_in4096_out128",
+      "cell": {
+        "concurrency": 1,
+        "mean_output_tokens": 128,
+        "stddev_input_tokens": 0,
+        "stddev_output_tokens": 0,
+        "max_num_completed_requests": 30,
+        "timeout_s": 600,
+        "mean_input_tokens": 4096
+      },
+      "started_at": 1785117709.780902,
+      "finished_at": 1785117716.270607,
+      "returncode": 1,
+      "status": "failed"
+    },
+    {
+      "backend": "ecs",
+      "experiment": "prompt_length",
+      "exp_id": "prompt_length_c1_in512_out128",
+      "cell": {
+        "concurrency": 1,
+        "mean_output_tokens": 128,
+        "stddev_input_tokens": 0,
+        "stddev_output_tokens": 0,
+        "max_num_completed_requests": 30,
+        "timeout_s": 600,
+        "mean_input_tokens": 512
+      },
+      "started_at": 1785117716.270713,
+      "finished_at": 1785117860.4957912,
+      "returncode": 0,
+      "status": "ok"
+    },
+    {
+      "backend": "ecs",
+      "experiment": "prompt_length",
+      "exp_id": "prompt_length_c1_in1024_out128",
+      "cell": {
+        "concurrency": 1,
+        "mean_output_tokens": 128,
+        "stddev_input_tokens": 0,
+        "stddev_output_tokens": 0,
+        "max_num_completed_requests": 30,
+        "timeout_s": 600,
+        "mean_input_tokens": 1024
+      },
+      "started_at": 1785117860.4958808,
+      "finished_at": 1785118003.939927,
+      "returncode": 0,
+      "status": "ok"
+    },
+    {
+      "backend": "ecs",
+      "experiment": "prompt_length",
+      "exp_id": "prompt_length_c1_in2048_out128",
+      "cell": {
+        "concurrency": 1,
+        "mean_output_tokens": 128,
+        "stddev_input_tokens": 0,
+        "stddev_output_tokens": 0,
+        "max_num_completed_requests": 30,
+        "timeout_s": 600,
+        "mean_input_tokens": 2048
+      },
+      "started_at": 1785118003.9400141,
+      "finished_at": 1785118147.659915,
+      "returncode": 0,
+      "status": "ok"
+    },
+    {
+      "backend": "ecs",
+      "experiment": "prompt_length",
+      "exp_id": "prompt_length_c1_in4096_out128",
+      "cell": {
+        "concurrency": 1,
+        "mean_output_tokens": 128,
+        "stddev_input_tokens": 0,
+        "stddev_output_tokens": 0,
+        "max_num_completed_requests": 30,
+        "timeout_s": 600,
+        "mean_input_tokens": 4096
+      },
+      "started_at": 1785118147.6600041,
+      "finished_at": 1785118301.932828,
+      "returncode": 0,
+      "status": "ok"
+    },
+    {
+      "backend": "bedrock",
+      "experiment": "prompt_length",
+      "exp_id": "prompt_length_c1_in512_out128",
+      "cell": {
+        "concurrency": 1,
+        "mean_output_tokens": 128,
+        "stddev_input_tokens": 0,
+        "stddev_output_tokens": 0,
+        "max_num_completed_requests": 30,
+        "timeout_s": 600,
+        "mean_input_tokens": 512
+      },
+      "started_at": 1785118301.93292,
+      "finished_at": 1785118367.072638,
+      "returncode": 0,
+      "status": "ok"
+    },
+    {
+      "backend": "bedrock",
+      "experiment": "prompt_length",
+      "exp_id": "prompt_length_c1_in1024_out128",
+      "cell": {
+        "concurrency": 1,
+        "mean_output_tokens": 128,
+        "stddev_input_tokens": 0,
+        "stddev_output_tokens": 0,
+        "max_num_completed_requests": 30,
+        "timeout_s": 600,
+        "mean_input_tokens": 1024
+      },
+      "started_at": 1785118367.072717,
+      "finished_at": 1785118429.2624488,
+      "returncode": 0,
+      "status": "ok"
+    },
+    {
+      "backend": "bedrock",
+      "experiment": "prompt_length",
+      "exp_id": "prompt_length_c1_in2048_out128",
+      "cell": {
+        "concurrency": 1,
+        "mean_output_tokens": 128,
+        "stddev_input_tokens": 0,
+        "stddev_output_tokens": 0,
+        "max_num_completed_requests": 30,
+        "timeout_s": 600,
+        "mean_input_tokens": 2048
+      },
+      "started_at": 1785118429.2625332,
+      "finished_at": 1785118492.343015,
+      "returncode": 0,
+      "status": "ok"
+    },
+    {
+      "backend": "bedrock",
+      "experiment": "prompt_length",
+      "exp_id": "prompt_length_c1_in4096_out128",
+      "cell": {
+        "concurrency": 1,
+        "mean_output_tokens": 128,
+        "stddev_input_tokens": 0,
+        "stddev_output_tokens": 0,
+        "max_num_completed_requests": 30,
+        "timeout_s": 600,
+        "mean_input_tokens": 4096
+      },
+      "started_at": 1785118492.343138,
+      "finished_at": 1785118557.629685,
+      "returncode": 0,
+      "status": "ok"
+    }
+  ]
+}
