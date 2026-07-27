@@ -1,35 +1,48 @@
 # Unified cost model for Self-host / ECS / Bedrock (USD).
-# estimate_cost.py dispatches on each backend's `billing` field.
+# estimate_cost.py reports BOTH normalized busy capacity cost and
+# (for Bedrock CMU) session-billed / allocated cost — see README.
 #
 # Verify rates for your account/region before publishing paper numbers.
 
 currency: USD
 
+# How to allocate billed_session_cost across cells in a session:
+#   duration — proportional to approx_duration_s
+#   requests — proportional to num_completed_requests
+session_allocation: duration
+
 selfhost:
   billing: electricity
-  # No cloud hourly charge; electricity is the variable OpEx proxy.
+  # Marginal OpEx while serving (paper: "electricity-only")
   power_watts: 350
   electricity_usd_per_kwh: 0.15
   use_electricity: true
-  # Optional GPU amortization (uncomment to include in $/hour):
-  # hardware:
-  #   gpu_purchase_usd: 1800
-  #   lifetime_hours: 26280   # e.g. 3 years × 24 × 365
+  # TCO proxy: whole-system purchase amortized over lifetime hours
+  # (paper: report electricity-only AND amortized side-by-side)
+  hardware:
+    system_purchase_usd: 2500
+    lifetime_hours: 26280   # e.g. 3 years × 24 × 365
+  # Primary $/hour used for normalized_compute_cost:
+  #   electricity | amortized
+  primary_hourly: amortized
 
 ecs:
   billing: hourly
-  # 1 × g5.xlarge (1 × A10G) on-demand — change if you swap instance type
+  # COMPUTE-ONLY: 1 × g5.xlarge (1 × A10G) on-demand instance price.
+  # Phase 1 does NOT include EBS, ALB, NAT, CloudWatch, or data transfer.
   cost_per_hour: 1.006
+  cost_scope: compute_only
 
 bedrock:
-  # This harness uses Custom Model Import (On-Demand), which is NOT per-token.
-  # Billed by active model-copy time in Custom Model Units (CMU), 5-minute windows.
+  # Custom Model Import (On-Demand): CMU × $/CMU/min in 5-minute windows.
   # Docs: https://docs.aws.amazon.com/bedrock/latest/userguide/import-model-calculate-cost.html
+  # NOT per-token.
   billing: cmu
+  # Default copy count when CloudWatch ModelCopy is unavailable.
+  # Prefer per-row `model_copies` from fetch_bedrock_metrics.py / aggregated.csv.
   model_copies: 1
-  # From Bedrock console model details or GetImportedModel.customModelUnitsPerModelCopy
   custom_model_units_per_copy: 2
-  # Price per CMU per minute — US East (N. Virginia) v1.0 on Bedrock pricing page
+  # US East (N. Virginia) CMU rate — confirm on Bedrock pricing page
   usd_per_cmu_per_minute: 0.05718
   billing_window_minutes: 5
   cost_per_hour: 0.0   # no Provisioned Throughput

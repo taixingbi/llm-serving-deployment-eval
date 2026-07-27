@@ -165,6 +165,17 @@ def flatten_run(run_dir: Path) -> dict[str, Any] | None:
     req_per_s = (float(per_min) / 60.0) if per_min else None
     exp_id = run.get("exp_id")
 
+    # Optional CloudWatch / sidecar metrics (see fetch_bedrock_metrics.py)
+    model_copies = run.get("model_copies")
+    metrics_path = run_dir / "bedrock_metrics.json"
+    if metrics_path.exists():
+        try:
+            bm = json.loads(metrics_path.read_text())
+            if model_copies is None and bm.get("model_copies") is not None:
+                model_copies = bm["model_copies"]
+        except (json.JSONDecodeError, OSError):
+            pass
+
     return {
         "backend": run.get("backend"),
         "experiment": experiment_from_exp_id(exp_id),
@@ -173,6 +184,8 @@ def flatten_run(run_dir: Path) -> dict[str, Any] | None:
         "mean_output_tokens": run.get("mean_output_tokens"),
         "concurrency": run.get("concurrency"),
         "model": run.get("model") or summary_doc.get("model"),
+        "finished_at": run.get("finished_at"),
+        "model_copies": model_copies,
         "ttft_p50_s": m["ttft"]["p50"],
         "ttft_p95_s": m["ttft"]["p95"],
         "ttft_p99_s": m["ttft"]["p99"],

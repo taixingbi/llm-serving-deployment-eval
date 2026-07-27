@@ -92,9 +92,28 @@ python3 sample_resources.py --out /tmp/resources.jsonl --interval 1.0
 
 ```bash
 python scripts/aggregate.py
+
+# Optional but recommended for Bedrock: attach CloudWatch ModelCopy per cell
+# python scripts/fetch_bedrock_metrics.py --exp-id concurrency_c64_in550_out150 \
+#   --imported-model-arn 'arn:aws:bedrock:us-east-1:ACCOUNT:imported-model/ID'
+# then re-run aggregate.py
+
 python scripts/estimate_cost.py   # edit configs/cost.yaml first
 python scripts/plot_figures.py
 ```
+
+`estimate_cost.py` writes **dual** cost columns (do not use only the old per-cell 5-minute floor as the paper conclusion):
+
+| Column | Use |
+| --- | --- |
+| `normalized_compute_cost_usd` | Busy capacity cost for the cell (`$/hr × duration`) |
+| `billed_session_cost_usd` | Bedrock: one CMU bill for the whole experiment session |
+| `allocated_session_cost_usd` | Session bill allocated to this cell |
+| `cost_per_request_normalized_usd` | Efficiency / frontier plots (primary) |
+| `cost_per_request_billed_usd` | Closer to AWS invoice attribution |
+| `cell_floor_billed_cost_usd` | If the cell ran alone (still ≥1×5-min window) |
+
+Self-host also prints electricity-only vs amortized TCO $/hour. ECS is labeled **compute-only** (g5.xlarge instance price; no ALB/EBS/NAT).
 
 Outputs:
 
@@ -109,11 +128,11 @@ Outputs:
 configs/backends.yaml
 configs/cost.yaml
 configs/experiments/{concurrency,prompt_length,output_length}.yaml
-scripts/{load_env,resolve_endpoints,run_one,run_matrix,sample_resources,aggregate,estimate_cost,plot_figures,envutil}
+scripts/{load_env,resolve_endpoints,run_one,run_matrix,sample_resources,aggregate,estimate_cost,fetch_bedrock_metrics,plot_figures,envutil}
 paper/METHODS.md
 example.md
 ```
 
 ## Paper notes
 
-See [`paper/METHODS.md`](paper/METHODS.md). Capacity-fair framing: 1×3090 vs 1×A10G vs 1 Bedrock imported copy — not hardware-identical, so report cost and reliability alongside latency.
+See [`paper/METHODS.md`](paper/METHODS.md). Capacity-fair framing: 1×3090 vs 1×A10G vs Bedrock imported copies — not hardware-identical. Cost figures must distinguish **normalized busy capacity** from **CMU 5-minute billing floors / session invoices**.

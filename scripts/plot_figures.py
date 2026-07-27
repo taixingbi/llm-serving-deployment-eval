@@ -102,42 +102,75 @@ def plot_gpu_vs_concurrency(df: pd.DataFrame, out_dir: Path) -> None:
 
 
 def plot_cost_vs_throughput(df: pd.DataFrame, out_dir: Path) -> None:
-    if "cost_per_request_usd" not in df.columns:
+    cost_col = (
+        "cost_per_request_normalized_usd"
+        if "cost_per_request_normalized_usd" in df.columns
+        else "cost_per_request_usd"
+    )
+    if cost_col not in df.columns:
         return
-    sub = df.dropna(subset=["cost_per_request_usd", "output_tokens_per_s"])
+    sub = df.dropna(subset=[cost_col, "output_tokens_per_s"])
     if sub.empty:
         return
     fig, ax = plt.subplots(figsize=(7, 4.5))
     for backend, g in sub.groupby("backend"):
         ax.scatter(
             g["output_tokens_per_s"],
-            g["cost_per_request_usd"],
+            g[cost_col],
             label=backend,
             alpha=0.8,
         )
     ax.set_xlabel("Output tokens / s")
-    ax.set_ylabel("Cost / request (USD)")
-    ax.set_title("Cost vs Throughput")
+    ax.set_ylabel("Cost / request normalized (USD)")
+    ax.set_title("Normalized Cost vs Throughput")
     ax.legend()
     ax.grid(True, alpha=0.3)
     save(fig, out_dir / "cost_vs_throughput.png")
 
 
 def plot_cost_vs_latency(df: pd.DataFrame, out_dir: Path) -> None:
-    if "cost_per_request_usd" not in df.columns:
+    cost_col = (
+        "cost_per_request_normalized_usd"
+        if "cost_per_request_normalized_usd" in df.columns
+        else "cost_per_request_usd"
+    )
+    if cost_col not in df.columns:
         return
-    sub = df.dropna(subset=["cost_per_request_usd", "e2e_p50_s"])
+    sub = df.dropna(subset=[cost_col, "e2e_p50_s"])
     if sub.empty:
         return
     fig, ax = plt.subplots(figsize=(7, 4.5))
     for backend, g in sub.groupby("backend"):
-        ax.scatter(g["e2e_p50_s"], g["cost_per_request_usd"], label=backend, alpha=0.8)
+        ax.scatter(g["e2e_p50_s"], g[cost_col], label=backend, alpha=0.8)
     ax.set_xlabel("E2E latency P50 (s)")
-    ax.set_ylabel("Cost / request (USD)")
-    ax.set_title("Cost vs Latency")
+    ax.set_ylabel("Cost / request normalized (USD)")
+    ax.set_title("Normalized Cost vs Latency")
     ax.legend()
     ax.grid(True, alpha=0.3)
     save(fig, out_dir / "cost_vs_latency.png")
+
+
+def plot_cost_normalized_vs_billed(df: pd.DataFrame, out_dir: Path) -> None:
+    need = {"cost_per_request_normalized_usd", "cost_per_request_billed_usd", "backend"}
+    if not need.issubset(df.columns):
+        return
+    sub = df.dropna(subset=["cost_per_request_normalized_usd", "cost_per_request_billed_usd"])
+    if sub.empty:
+        return
+    fig, ax = plt.subplots(figsize=(7, 4.5))
+    for backend, g in sub.groupby("backend"):
+        ax.scatter(
+            g["cost_per_request_normalized_usd"],
+            g["cost_per_request_billed_usd"],
+            label=backend,
+            alpha=0.8,
+        )
+    ax.set_xlabel("Cost / request normalized (USD)")
+    ax.set_ylabel("Cost / request billed-allocated (USD)")
+    ax.set_title("Normalized vs Session-Allocated Cost / Request")
+    ax.legend()
+    ax.grid(True, alpha=0.3)
+    save(fig, out_dir / "cost_normalized_vs_billed.png")
 
 
 def main() -> int:
@@ -185,6 +218,7 @@ def main() -> int:
     plot_gpu_vs_concurrency(conc, out_dir)
     plot_cost_vs_throughput(df, out_dir)
     plot_cost_vs_latency(df, out_dir)
+    plot_cost_normalized_vs_billed(df, out_dir)
     return 0
 
 
